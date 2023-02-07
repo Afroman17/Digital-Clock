@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Digital Clock With Date</title>
+    <link rel="stylesheet" href="../CSS/styleclock.css">
+  </head>
+  <body onload="startClock()">
+    <h1 class="position-1">My first Clock :D</h1>
+    <div class="datetime">
+      <div class="date">
+        <span id="dayname">Day</span>,
+        <span id="month">Month</span>
+        <span id="daynum">00</span>,
+        <span id="year">Year</span>
+      </div>
+      <div class="time">
+        <span id="hour">00</span>:
+        <span id="minutes">00</span>:
+        <span id="seconds">00</span>
+        <span id="period">AM</span>
+      </div>
+    </div>
+    <h6 class="position-2">by: Robert Castro</h6>
+
+    <script type="text/javascript">
+    function updateClock(){
+      let now = new Date();
+      let dname = now.getDay(),
+          month = now.getMonth(),
+          daynumber = now.getDate(),
+          year = now.getFullYear(),
+          hour = now.getHours(),
+          minute = now.getMinutes(),
+          second = now.getSeconds(),
+          term = "AM";
+
+          if(hour >= 12){
+            term = "PM";
+          }
+          if(hour == 0){
+            hour = 12;
+          }
+          if(hour > 12){
+            hour = hour - 12;
+          }
+
+          Number.prototype.pad = function(digits){
+            for(var n = this.toString(); n.length < digits; n = 0 + n);
+            return n;
+          }
+
+          var let = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+          var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+          var values = [week[dname], let[month], daynumber.pad(2), year, hour.pad(2), minute.pad(2), second.pad(2), term];
+          for(var i = 0; i < ids.length; i++)
+          document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+    }
+
+    function startClock(){
+      updateClock();
+      window.setInterval("updateClock()", 1);
+    }
+    </script>
+
+  </body>
+</html>
